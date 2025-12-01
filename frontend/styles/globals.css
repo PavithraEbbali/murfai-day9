@@ -1,64 +1,61 @@
 @import 'tailwindcss';
-@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Default Radius - sharper than friend's rounded look */
-  --radius: 0.3rem; 
+  /* ... keep standard shadcn defaults or use these new ones ... */
+  --radius: 0.5rem;
+  /* Default Light Mode (Clean Tech) */
+  --background: oklch(0.98 0 0);
+  --foreground: oklch(0.14 0.05 260);
+  --primary: oklch(0.45 0.20 260);
+  --primary-foreground: oklch(0.98 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.14 0.05 260);
+  --border: oklch(0.92 0 0);
+  --ring: oklch(0.45 0.20 260);
+}
 
-  /* 🌌 CYBERPUNK DARK THEME DEFAULT */
-  /* Background: Very dark blue/slate, almost black */
-  --background: oklch(0.12 0.04 260); 
-  /* Text: Off-white */
-  --foreground: oklch(0.98 0.01 240);
-
-  /* Card: Slightly lighter dark slate */
-  --card: oklch(0.15 0.04 260);
-  --card-foreground: oklch(0.98 0.01 240);
+/* 👾 CYBER COMEDY ARENA THEME - Neon & Digital */
+.dark {
+  --background: oklch(0.12 0.03 260);       /* Deep Navy/Black Void */
+  --foreground: oklch(0.95 0.02 260);       /* White-blue text */
   
-  --popover: oklch(0.15 0.04 260);
-  --popover-foreground: oklch(0.98 0.01 240);
+  --card: oklch(0.18 0.04 260);             /* Dark Tech Card */
+  --card-foreground: oklch(0.95 0.02 260);
 
-  /* Primary: Neon Cyan */
-  --primary: oklch(0.72 0.16 200);
-  --primary-foreground: oklch(0.12 0.04 260);
+  --popover: oklch(0.15 0.05 260);
+  --popover-foreground: oklch(0.95 0.02 260);
 
-  /* Secondary: Deep Violet/Slate */
-  --secondary: oklch(0.25 0.10 280);
-  --secondary-foreground: oklch(0.98 0.01 240);
+  /* The Main Accents */
+  --primary: oklch(0.65 0.25 190);          /* Electric Cyan */
+  --primary-foreground: oklch(0.10 0.05 260);
 
-  --muted: oklch(0.20 0.04 260);
+  --secondary: oklch(0.25 0.10 260);        /* Muted Blue UI elements */
+  --secondary-foreground: oklch(0.90 0.05 200);
+
+  --muted: oklch(0.20 0.05 260);
   --muted-foreground: oklch(0.60 0.05 260);
 
-  /* Accent: Electric Violet */
-  --accent: oklch(0.65 0.22 290);
-  --accent-foreground: oklch(0.98 0.01 240);
+  --accent: oklch(0.60 0.25 330);           /* Hot Pink Accent */
+  --accent-foreground: oklch(1 0 0);
 
-  /* Destructive: Neon Red */
-  --destructive: oklch(0.60 0.22 25);
-  --destructive-foreground: oklch(0.98 0.01 240);
-
-  --border: oklch(0.25 0.05 260);
-  --input: oklch(0.20 0.05 260);
-  --ring: oklch(0.72 0.16 200); /* Ring matches Primary Cyan */
+  --destructive: oklch(0.55 0.25 25);       /* Neon Red */
+  
+  --border: oklch(0.30 0.10 260);           /* Blue-ish borders */
+  --input: oklch(0.25 0.10 260);
+  --ring: oklch(0.65 0.25 190);             /* Cyan Focus Ring */
 }
 
 @theme inline {
-  --font-sans:
-    var(--font-public-sans), ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  --font-mono:
-    var(--font-commit-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    'Liberation Mono', 'Courier New', monospace;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace; 
 
-  /* Mapping variables */
+  /* Map the variables */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
@@ -78,9 +75,20 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground antialiased;
-    /* Optional: Add a subtle scanline effect */
-    background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-    background-size: 100% 2px, 3px 100%;
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  /* Custom Grid Background for the Tech Feel */
+  .bg-grid-pattern {
+    background-size: 40px 40px;
+    background-image: 
+      linear-gradient(to right, oklch(0.3 0.1 260 / 0.1) 1px, transparent 1px),
+      linear-gradient(to bottom, oklch(0.3 0.1 260 / 0.1) 1px, transparent 1px);
+  }
+  
+  .text-glow {
+    text-shadow: 0 0 20px var(--color-primary);
   }
 }

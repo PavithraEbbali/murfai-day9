@@ -1,124 +1,109 @@
-import { forwardRef } from 'react';
 import { Button } from '@/components/livekit/button';
 
-// --- Icons (Tech/Geometric Style) ---
-
-function BrainCircuitIcon() {
+function CyberMicIcon() {
   return (
-    <div className="relative mb-10 group">
-      {/* Outer Rotating Ring */}
-      <div className="absolute inset-0 -m-4 border border-cyan-500/30 rounded-full animate-[spin_10s_linear_infinite]" />
-      <div className="absolute inset-0 -m-4 border border-cyan-500/10 rounded-full animate-[spin_15s_linear_infinite_reverse] scale-110" />
+    <div className="relative mb-4 group scale-75 transform-gpu"> 
+      {/* Reduced scale to 0.75 to save space */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="h-32 w-32 rounded-full border-2 border-primary/30 border-t-primary animate-spin [animation-duration:3s]" />
+      </div>
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="h-24 w-24 rounded-full border-2 border-accent/30 border-b-accent animate-spin [animation-duration:5s] direction-reverse" />
+      </div>
       
-      {/* Glow Effect */}
-      <div className="absolute inset-0 bg-cyan-500/20 blur-2xl rounded-full group-hover:bg-cyan-400/30 transition-all duration-500" />
-
-      {/* Main Icon */}
-      <div className="relative h-24 w-24 bg-slate-900 rounded-2xl border border-cyan-500/50 flex items-center justify-center shadow-[0_0_15px_rgba(6,182,212,0.3)] backdrop-blur-md">
-        <svg className="h-12 w-12 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+      <div className="relative z-10 flex items-center justify-center bg-background/50 backdrop-blur-md rounded-full p-3 border border-white/10 shadow-[0_0_30px_-5px_var(--color-primary)]">
+        <svg className="h-12 w-12 text-primary group-hover:text-accent transition-colors duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
         </svg>
-        
-        {/* Tech Accents */}
-        <div className="absolute -top-1 -right-1 w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
-        <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-violet-500 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }} />
       </div>
     </div>
   );
 }
 
-function ScanIcon({ className }: { className?: string }) {
+function LightningIcon({ className }: { className?: string }) {
   return (
     <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h4a1 1 0 010 2H5v3a1 1 0 01-2 0V4zM20 4a1 1 0 00-1-1h-4a1 1 0 000 2h3v3a1 1 0 002 0V4zM3 20a1 1 0 001 1h4a1 1 0 000-2H5v-3a1 1 0 00-2 0v3zM20 20a1 1 0 01-1 1h-4a1 1 0 010-2h3v-3a1 1 0 012 0v3zM12 8v8M8 12h8" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
     </svg>
   );
 }
 
-// --- Main Component ---
-
-interface WelcomeViewProps extends React.ComponentProps<'div'> {
+interface WelcomeViewProps {
   startButtonText: string;
   onStartCall: () => void;
 }
 
-export const WelcomeView = forwardRef<HTMLDivElement, WelcomeViewProps>(
-  ({ startButtonText, onStartCall, className, ...props }, ref) => {
-    return (
-      <div 
-        ref={ref} 
-        className="min-h-screen bg-[#050B14] relative overflow-hidden flex flex-col items-center justify-center font-sans text-slate-100"
-        {...props}
-      >
-        {/* Background Grid & Cyber Effects */}
-        <div className="absolute inset-0 z-0">
-          {/* Grid Pattern */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20" />
+export const WelcomeView = ({
+  startButtonText,
+  onStartCall,
+  ref,
+}: React.ComponentProps<'div'> & WelcomeViewProps) => {
+  return (
+    <div ref={ref} className="h-screen w-full bg-background relative overflow-hidden font-sans flex flex-col items-center justify-center">
+      
+      {/* BACKGROUND ELEMENTS */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-30 mask-image-gradient-b"></div>
+      <div className="absolute top-[-20%] left-[-10%] w-[400px] h-[400px] bg-primary/10 blur-[100px] rounded-full mix-blend-screen animate-pulse"></div>
+      
+      {/* MAIN CONTENT WRAPPER - tightly packed */}
+      <section className="relative z-10 w-full max-w-4xl mx-auto px-4 flex flex-col items-center gap-6">
+        
+        {/* 1. Header Section */}
+        <div className="flex flex-col items-center text-center">
+          <CyberMicIcon />
           
-          {/* Spotlight */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-cyan-900/20 blur-[100px] rounded-full" />
+          <div className="inline-flex items-center gap-2 px-2 py-1 rounded-full border border-primary/30 bg-primary/5 text-primary text-[10px] font-mono tracking-widest uppercase mb-2">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-primary"></span>
+            </span>
+            System Online
+          </div>
+          
+          <h1 className="text-5xl md:text-6xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-primary via-white to-accent drop-shadow-sm leading-tight">
+            COMEDY ARENA
+          </h1>
+          
+          <p className="text-base md:text-lg text-muted-foreground font-light tracking-wide mt-2">
+            Man vs. Machine. <span className="text-primary font-medium">Improv Battle.</span>
+          </p>
         </div>
 
-        <div className="relative z-10 w-full max-w-4xl px-6 flex flex-col items-center text-center">
-          
-          <BrainCircuitIcon />
-
-          <div className="space-y-4 mb-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cyan-800 bg-cyan-950/30 text-cyan-400 text-xs tracking-[0.2em] uppercase font-mono">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
-              </span>
-              System Online
-            </div>
-            
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white">
-              Nova<span className="text-cyan-400">Cart</span>
-            </h1>
-            
-            <p className="text-lg md:text-xl text-slate-400 max-w-xl mx-auto leading-relaxed">
-              Experience the next generation of commerce. 
-              <span className="block text-cyan-200/80 mt-1">Powered by Neural Voice Synthesis.</span>
-            </p>
-          </div>
-
-          {/* Tech Specs / Features */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full mb-12">
+        {/* 2. Compact Cards Section */}
+        <div className="grid grid-cols-3 gap-3 w-full max-w-3xl">
             {[
-              { title: "Semantic Search", desc: "Context-aware product discovery", icon: "⦿" },
-              { title: "Voice Checkout", desc: "Secure biometric authentication", icon: "◈" },
-              { title: "Real-time Analytics", desc: "Live inventory tracking", icon: "⚡" }
-            ].map((feature, idx) => (
-              <div key={idx} className="group bg-slate-900/50 border border-slate-800 p-4 rounded-lg hover:border-cyan-500/50 transition-colors duration-300">
-                <div className="text-cyan-500 text-2xl mb-2 group-hover:scale-110 transition-transform duration-300">{feature.icon}</div>
-                <h3 className="font-semibold text-slate-200 text-sm">{feature.title}</h3>
-                <p className="text-xs text-slate-500 mt-1">{feature.desc}</p>
-              </div>
+                { icon: "🎲", title: "Generate", desc: "Get a chaotic scenario.", color: "border-primary/40" },
+                { icon: "🎙️", title: "Perform", desc: "Act it out via voice.", color: "border-accent/40" },
+                { icon: "🤖", title: "Judge", desc: "AI rates your logic.", color: "border-primary/40" }
+            ].map((item, i) => (
+                <div key={i} className={`group bg-card/40 backdrop-blur-sm border ${item.color} p-3 rounded-xl hover:bg-card/60 transition-all text-center`}>
+                    <div className="text-xl mb-1 grayscale group-hover:grayscale-0">{item.icon}</div>
+                    <h3 className="text-sm font-bold text-foreground font-mono uppercase">{item.title}</h3>
+                    <p className="text-xs text-muted-foreground leading-tight mt-1">{item.desc}</p>
+                </div>
             ))}
-          </div>
+        </div>
 
-          {/* Control Interface */}
+        {/* 3. Action Section */}
+        <div className="mt-2">
           <div className="relative group">
-            <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-violet-500 rounded-lg blur opacity-20 group-hover:opacity-50 transition duration-1000"></div>
-            <Button
-              variant="default"
-              size="lg"
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-accent rounded-lg blur opacity-30 group-hover:opacity-80 transition duration-200"></div>
+            <Button 
               onClick={onStartCall}
-              className="relative w-full md:w-80 h-14 bg-slate-950 text-cyan-50 border border-cyan-800 hover:bg-cyan-950 hover:border-cyan-400 transition-all uppercase tracking-widest text-sm font-bold flex items-center justify-center gap-3"
+              size="lg"
+              className="relative px-8 py-6 bg-background border border-primary/50 text-foreground font-mono text-lg uppercase tracking-widest hover:bg-background/80 hover:text-primary transition-all shadow-xl"
             >
-              <ScanIcon className="w-5 h-5" />
-              Initialize Session
+              {startButtonText}
+              <LightningIcon className="ml-2 w-4 h-4 text-accent" />
             </Button>
           </div>
           
-          <div className="mt-6 font-mono text-[10px] text-slate-600 uppercase tracking-widest">
-            v2.4.0 • Secure Connection • 12ms Latency
+          <div className="mt-4 text-[10px] text-muted-foreground font-mono text-center opacity-60">
+             v2.0.4 // MIC PERMISSION REQUIRED
           </div>
-
         </div>
-      </div>
-    );
-  }
-);
 
-WelcomeView.displayName = 'WelcomeView';
+      </section>
+    </div>
+  );
+};
